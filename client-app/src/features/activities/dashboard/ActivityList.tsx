@@ -1,16 +1,14 @@
 import React, { SyntheticEvent, useState } from 'react';
 import { Button, Item, Label, Segment } from 'semantic-ui-react';
-import { Activity } from '../../../app/models/activity';
+import { useStore } from '../../../app/stores/store';
+import {observer} from 'mobx-react-lite';
 
-interface Props {
-    activities: Activity[];
-    selectActivity: (id: string) => void;
-    deleteActivity: (id: string) => void;
-    submiting: boolean;
-}
 
-const ActivityList = ({activities, selectActivity, deleteActivity, submiting}: Props) => {
+
+const ActivityList = () => {
+    const {activityStore} = useStore();
     const [target, setTarget] = useState('');
+    const {loading, deleteActivity, activitiesByDate} = activityStore;
 
     const handleDelete = (e: SyntheticEvent<HTMLButtonElement>, id: string) => {
         setTarget(e.currentTarget.name);
@@ -21,7 +19,7 @@ const ActivityList = ({activities, selectActivity, deleteActivity, submiting}: P
         <Segment>
             <Item.Group divided>
                 {
-                    activities.map(activity => (
+                    activitiesByDate.map(activity => (
                         <Item key={activity.id}>
                             <Item.Content>
                                 <Item.Header as='a'>{activity.title}</Item.Header>
@@ -31,10 +29,11 @@ const ActivityList = ({activities, selectActivity, deleteActivity, submiting}: P
                                     <div>{activity.city}, {activity.venue}</div>
                                 </Item.Description>
                                 <Item.Extra>
-                                    <Button floated='right' content='View' color='blue' onClick={() => selectActivity(activity.id)} />
+                                    <Button floated='right' content='View' color='blue' 
+                                    onClick={() => activityStore.selectActivity(activity.id)} />
                                     <Button 
                                         name={activity.id}
-                                        loading={submiting && target === activity.id} 
+                                        loading={loading && target === activity.id} 
                                         floated='right' 
                                         content='Delete' 
                                         color='red' 
@@ -50,4 +49,4 @@ const ActivityList = ({activities, selectActivity, deleteActivity, submiting}: P
     );
 };
 
-export default ActivityList;
+export default observer(ActivityList);
