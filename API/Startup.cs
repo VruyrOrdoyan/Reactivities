@@ -62,7 +62,7 @@ namespace API
                 .FormActions(s => s.Self())
                 .FontSources(s => s.Self().CustomSources("https://fonts.gstatic.com", "data:"))
                 .FrameAncestors(s => s.Self())
-                .ImageSources(s => s.Self().CustomSources("https://res.cloudinary.com"))
+                .ImageSources(s => s.Self().CustomSources("https://res.cloudinary.com", "blob:"))
                 .ScriptSources(s => s.Self().CustomSources("sha256-BFoQ3P2TktwHmR9qiiNJKyJwBpQKtW9Kw/oUXBBrx4s=")));
             if (env.IsDevelopment())
             {
