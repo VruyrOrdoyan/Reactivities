@@ -73,7 +73,7 @@ namespace API
             {
                 //app.UseHsts();
                 app.Use(async (context, next) => {
-                    context.Request.Headers.Add("Strict-Transport-Security", "max-age=31536000");
+                    context.Request.Headers.Add("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
                     await next.Invoke();
                 });
             }
