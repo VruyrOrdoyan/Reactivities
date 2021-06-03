@@ -58,12 +58,14 @@ namespace API
             app.UseXfo(opt => opt.Deny());
             app.UseCsp(opt => 
                 opt.BlockAllMixedContent()
-                .StyleSources(s => s.Self().CustomSources("https://fonts.googleapis.com"))
+                .StyleSources(s => s.Self().CustomSources("https://fonts.googleapis.com", "sha256-oFySg82XYSNiSd+Q3yfYPD/rxY6RMDMJ0KxzGG74iGM="))
                 .FormActions(s => s.Self())
                 .FontSources(s => s.Self().CustomSources("https://fonts.gstatic.com", "data:"))
                 .FrameAncestors(s => s.Self())
-                .ImageSources(s => s.Self().CustomSources("https://res.cloudinary.com", "blob:"))
-                .ScriptSources(s => s.Self().CustomSources("sha256-BFoQ3P2TktwHmR9qiiNJKyJwBpQKtW9Kw/oUXBBrx4s=")));
+                .ImageSources(s => s.Self().CustomSources("https://res.cloudinary.com", "blob:", 
+                    "https://www.facebook.com", "https://developers.facebook.com", "data:", "https://platform-lookaside.fbsbx.com"))
+                .ScriptSources(s => s.Self().CustomSources("sha256-BFoQ3P2TktwHmR9qiiNJKyJwBpQKtW9Kw/oUXBBrx4s=", 
+                    "sha256-GwMll5kmcmcVQeTp6KeaBb7IB/UWJc6XeJsVwwu9AIA=", "https://connect.facebook.net")));
             if (env.IsDevelopment())
             {
                 //app.UseDeveloperExceptionPage();
