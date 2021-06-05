@@ -10,6 +10,7 @@ using System.Text;
 using Infrastructure.Security;
 using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
+using System;
 
 namespace API.Extensions
 {
@@ -32,7 +33,9 @@ namespace API.Extensions
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = key,
                         ValidateAudience = false,
-                        ValidateIssuer = false
+                        ValidateIssuer = false,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
                     };
                     opt.Events = new JwtBearerEvents{
                         OnMessageReceived = context => 
